@@ -11,7 +11,7 @@ const questions = [
         name: 'shape',
         message: 'Choose a shape for your logo.',
         type: 'list',
-        choices: ['circle, square, triangle'],
+        choices: ['circle', 'square', 'triangle'],
     },
 
     {
@@ -24,7 +24,7 @@ const questions = [
     {
         type: 'input',
         name: 'shapeColor',
-        message: 'Enter a color name for your shape',
+        message: 'Enter a color name for your shape:',
         when: (answers) => {
             if(answers.shapeColorFormat === 'color name') {
                 return true;
@@ -64,7 +64,7 @@ const questions = [
     {
         type: 'input',
         name: 'text',
-        message: 'Enter 3 characters',
+        message: 'Enter 3 characters:',
         validate: (answer) => {
             if (answer.length > 3) {
                 return console.log('\n Sorry, text must be 3 characters or less.');
@@ -77,15 +77,15 @@ const questions = [
         name: 'textColorFormat',
         message: 'Choose a color format for the color of the text:',
         type: 'list',
-        choices: ['color names, hexadecimal']
+        choices: ['color names', 'hexadecimal']
     },
 
     {
         type: 'input',
         name: 'textColor',
-        message: 'Enter a color name for your text',
+        message: 'Enter a color name for your text:',
         when: (answers) => {
-            if(answers.textColorFormat === 'color name') {
+            if(answers.textColorFormat === 'color names') {
                 return true;
             }
             return false;
@@ -122,6 +122,7 @@ const questions = [
 ];
 
 function shapeOption(response) {
+    
     if (response.shape === 'circle') {
         let userShape = new circle (response.shapeColor, response.text, response.textColor)
         return userShape.render()
