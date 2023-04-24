@@ -43,6 +43,24 @@ const questions = [
 
     {
         type: 'input',
+        name: 'shapeColor',
+        message: 'Enter a hexadecimal color for your shape, i.e.(#ffffff):',
+        when: (answers) => {
+            if(answers.shapeColorFormat === 'hexadecimal') {
+                return true;
+            }
+            return false;
+        },
+        validate: (answer) => {
+            const hexRegEx = '^#[A-Fa-f0-9]{6}$'
+            if (!answer.match(hexRegEx)) {
+                return console.log('\n Please enter a valid hexadecimal')
+            }
+            return true;
+        }
+    },
 
+    {
+        
     }
 ]
