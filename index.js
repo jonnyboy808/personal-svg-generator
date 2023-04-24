@@ -78,5 +78,26 @@ const questions = [
         type: 'list',
         choices: ['color name, hexadecimal']
     },
+
+    {
+        type: 'input',
+        name: 'textColor',
+        message: 'Enter a color name for your text',
+        when: (answers) => {
+            if(answers.textColorFormat === 'color name') {
+                return true;
+            }
+            return false;
+        },
+        validate: (answer) => {
+            let answersLowerCase = answer.toLowerCase();
+            for (var i = 0, len = colorNames.length; i < len; ++i) {
+                if (answersLowerCase.indexOf(colorNames[i]) != -1) {
+                    return true;
+                }
+            }
+            return console.log('\n Please enter a valid color name')
+        }
+    },
     
 ]
