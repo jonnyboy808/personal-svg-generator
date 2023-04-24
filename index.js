@@ -99,5 +99,24 @@ const questions = [
             return console.log('\n Please enter a valid color name')
         }
     },
+
+    {
+        type: 'input',
+        name: 'textColor',
+        message: 'Enter a hexadecimal color for your text, i.e.(#ffffff):',
+        when: (answers) => {
+            if(answers.textColorFormat === 'hexadecimal') {
+                return true;
+            }
+            return false;
+        },
+        validate: (answer) => {
+            const hexRegEx = '^#[A-Fa-f0-9]{6}$'
+            if (!answer.match(hexRegEx)) {
+                return console.log('\n Please enter a valid hexadecimal')
+            }
+            return true;
+        }
+    },
     
 ]
