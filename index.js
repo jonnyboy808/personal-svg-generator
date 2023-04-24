@@ -76,7 +76,7 @@ const questions = [
         name: 'textColorFormat',
         message: 'Choose a color format for the color of the text:',
         type: 'list',
-        choices: ['color name, hexadecimal']
+        choices: ['color names, hexadecimal']
     },
 
     {
@@ -117,6 +117,22 @@ const questions = [
             }
             return true;
         }
-    },
-    
-]
+    },   
+];
+
+function shapeOption(response) {
+    if (response.shape === 'circle') {
+        let userShape = new circle (response.shapeColor, response.text, response.textColor)
+        return userShape.render()
+    }
+
+    if (response.shape === 'square') {
+        let userShape = new square (response.shapeColor, response.text, response.textColor)
+        return userShape.render()
+    }
+
+    if (response.shape === 'triangle') {
+        let userShape = new triangle (response.shapeColor, response.text, response.textColor)
+        return userShape.render()
+    }
+};
