@@ -61,6 +61,22 @@ const questions = [
     },
 
     {
-        
-    }
+        type: 'input',
+        name: 'text',
+        message: 'Enter 3 characters',
+        validate: (answer) => {
+            if (answer.length > 3) {
+                return console.log('\n Sorry, text must be 3 characters or less.');
+            }
+            return true;
+        }
+    },
+
+    {
+        name: 'textColorFormat',
+        message: 'Choose a color format for the color of the text:',
+        type: 'list',
+        choices: ['color name, hexadecimal']
+    },
+    
 ]
