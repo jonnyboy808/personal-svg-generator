@@ -24,7 +24,7 @@ const questions = [
     {
         type: 'input',
         name: 'shapeColor',
-        message: 'Enter a color name for your shape:',
+        message: 'Enter a color for your shape:',
         when: (answers) => {
             if(answers.shapeColorFormat === 'color name') {
                 return true;
@@ -77,15 +77,15 @@ const questions = [
         name: 'textColorFormat',
         message: 'Choose a color format for the color of the text:',
         type: 'list',
-        choices: ['color names', 'hexadecimal']
+        choices: ['color name ', 'hexadecimal']
     },
 
     {
         type: 'input',
         name: 'textColor',
-        message: 'Enter a color name for your text:',
+        message: 'Enter a color for your text:',
         when: (answers) => {
-            if(answers.textColorFormat === 'color names') {
+            if(answers.textColorFormat === 'color name ') {
                 return true;
             }
             return false;
