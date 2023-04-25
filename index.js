@@ -1,26 +1,32 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+// pulls in each shape depending on user choice from questions
 const circle = require('./lib/circle.js');
 const square = require('./lib/square.js');
 const triangle = require('./lib/triangle.js');
+
+// helps push newly created logo to file
 const fileName = "./examples/logo.svg";
+// created const from pulled color names from the node modules inside of the color-name folder
 const colorNames = ['aliceblue', 'antiquewhite', 'aqua', 'aquaMarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond', 'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgrey', 'darkgreen', 'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet', 'deeppink', 'deepskyblue', 'dimgray', 'dimgrey', 'dodgerblue', 'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'grey', 'green', 'greenyellow', 'honeydew', 'hotpink', 'indianred', 'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan', 'lightgoldenrodyellow', 'lightgray', 'lightgrey', 'lightgreen', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey', 'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'magenta', 'maroon', 'mediumaquamarine', 'mediumblue', 'mediumorchid', 'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab', 'orange', 'orangered', 'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru', 'pink', 'plum', 'powderblue', 'purple', 'rebeccapurple', 'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown', 'seagreen', 'seashell', 'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow', 'springgreen', 'steelblue', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'white', 'whitesmoke', 'yellow', 'yellowgreen']
 
+// start of questions for user generated logo 
 const questions = [
+    // generates questions for user shape choice
     {
         name: 'shape',
         message: 'Choose a shape for your logo.',
         type: 'list',
         choices: ['circle', 'square', 'triangle'],
     },
-
+    // generates question for user color entry method
     {
         name: 'shapeColorFormat',
         message: 'Choose a color format for the color of the shape.',
         type: 'list',
         choices: ['color name', 'hexadecimal']
     },
-
+    // color names entry, validates if entry matches color array
     {
         type: 'input',
         name: 'shapeColor',
@@ -41,7 +47,7 @@ const questions = [
             return console.log('\n Please enter a valid color name')
         }
     },
-
+    // hexadecimal color entry, validates if entry matches that of hex RegEx
     {
         type: 'input',
         name: 'shapeColor',
@@ -60,7 +66,7 @@ const questions = [
             return true;
         }
     },
-
+    //requires user to only enter 3 characters and will return a message if more than that
     {
         type: 'input',
         name: 'text',
@@ -72,14 +78,14 @@ const questions = [
             return true;
         }
     },
-
+    // generates question for user color entry method
     {
         name: 'textColorFormat',
         message: 'Choose a color format for the color of the text:',
         type: 'list',
         choices: ['color name ', 'hexadecimal']
     },
-
+    // color names entry, validates if entry matches color array
     {
         type: 'input',
         name: 'textColor',
@@ -100,7 +106,7 @@ const questions = [
             return console.log('\n Please enter a valid color name')
         }
     },
-
+    // hexadecimal color entry, validates if entry matches that of hex RegEx
     {
         type: 'input',
         name: 'textColor',
@@ -121,6 +127,7 @@ const questions = [
     },   
 ];
 
+ // function pulls from its respected shape folder to generate a shape depending on user choice
 function shapeOption(response) {
 
     if (response.shape === 'circle') {
@@ -139,11 +146,13 @@ function shapeOption(response) {
     }
 };
 
+// function generates a new svg file using inquirer 
 function createLogo(response) {
     const svg = shapeOption(response);
     fs.writeFile(fileName, svg, ()=> console.log('Generated logo.svg'))
 }
 
+// function to start question prompts, generate logo and console logs any errors
 function questionSet() {
     inquirer.prompt(questions).then((response) => {
         createLogo(response);
