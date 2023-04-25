@@ -41,6 +41,29 @@ describe('Circle', () => {
     });
 });
 ```
+Additional example using regular expression to call in a hexadecimal color code.
+```JS
+ // hexadecimal color entry, validates if entry matches that of hex RegEx
+    {
+        type: 'input',
+        name: 'shapeColor',
+        message: 'Enter a hexadecimal color for your shape, i.e.(#ffffff):',
+        when: (answers) => {
+            if(answers.shapeColorFormat === 'hexadecimal') {
+                return true;
+            }
+            return false;
+        },
+        validate: (answer) => {
+            const hexRegEx = '^#[A-Fa-f0-9]{6}$'
+            if (!answer.match(hexRegEx)) {
+                return console.log('\n Please enter a valid hexadecimal')
+            }
+            return true;
+        }
+    },
+```
+
 ## Walkthrough 
 Bellow is a walkthrough clip
 
